@@ -236,8 +236,6 @@ CVRPsolver* obterSolver(const char* nomeInstancia, double lambda, int numIteraco
 				break;
 			}
 		}
-//		if (imprimirAcompanhamento)
-//			imprimirPesos(numLocais, distancias);
 
 		// fechar arquivo de instância
 		arqInstancia.close();
@@ -297,8 +295,6 @@ int main(int argc, char* argv[]) {
 				std::cout << " - Lambda.............: " << cvrpSolver->getLambda() << std::endl;
 				std::cout << " - Número de iterações: " << numIteracoes << std::endl;
 				std::cout << "Solução:" << std::endl;
-				//imprimirSolucao(solucao, cvrpSolver, capacidade, numLocais);
-				//imprimirSolucao2(solucao, cvrpSolver);
 			} else {
 				std::printf("\"%s\";%d;%d;%f;%f\n", nomeInstancia,
 						cvrpSolver->calcularCustoSolucaoPorDistancias(solucao),
@@ -321,11 +317,6 @@ int main(int argc, char* argv[]) {
 								cvrpSolver->obterQuantidadeSolucoesAvaliadas(), solucao, demandas, coord);
 
 						if (salvarProgressoExecucao) {
-	//						conectorMySQL->inserirProgressoExecucao(idResultado, cvrpSolver->getNumAgrupamentosProgressoExecucao(),
-	//								numIteracoes, cvrpSolver->getCustoMelhorOtimoLocal(), cvrpSolver->getCustoPiorOtimoLocal(),
-	//								cvrpSolver->getCustoMedioOtimoLocal(), cvrpSolver->getDesvpadCustoOtimoLocal(),
-	//								cvrpSolver->getCustoAumentadoMelhorOtimoLocal(), cvrpSolver->getCustoAumentadoPiorOtimoLocal(),
-	//								cvrpSolver->getCustoAumentadoMedioOtimoLocal(), cvrpSolver->getDesvpadCustoAumentadoOtimoLocal());
 							conectorMySQL->inserirProgressoExecucao(idResultado, cvrpSolver->getNumAgrupamentosProgressoExecucao(),
 									numIteracoes, cvrpSolver->obterVetorCustoMelhorSolucao());
 						}
@@ -387,11 +378,6 @@ int main(int argc, char* argv[]) {
 										penalidadesSimetricas, idResultado);
 							}
 							if (salvarProgressoExecucao) {
-//								conectorMySQL->inserirProgressoExecucao(idResultado, cvrpSolver->getNumAgrupamentosProgressoExecucao(),
-//										iteracoes, cvrpSolver->getCustoMelhorOtimoLocal(), cvrpSolver->getCustoPiorOtimoLocal(),
-//										cvrpSolver->getCustoMedioOtimoLocal(), cvrpSolver->getDesvpadCustoOtimoLocal(),
-//										cvrpSolver->getCustoAumentadoMelhorOtimoLocal(), cvrpSolver->getCustoAumentadoPiorOtimoLocal(),
-//										cvrpSolver->getCustoAumentadoMedioOtimoLocal(), cvrpSolver->getDesvpadCustoAumentadoOtimoLocal());
 								conectorMySQL->inserirProgressoExecucao(idResultado, cvrpSolver->getNumAgrupamentosProgressoExecucao(),
 										iteracoes, cvrpSolver->obterVetorCustoMelhorSolucao());
 							}
@@ -417,26 +403,8 @@ int main(int argc, char* argv[]) {
 		std::cin >> resposta;
 		if (resposta == "s") {
 			// gerar combinações de parâmetros de testes
-//			std::string nomesInstancias[53] = {
-//					"A-n32-k5", "A-n33-k5", "A-n33-k6", "A-n34-k5", "A-n36-k5", "A-n37-k5", "A-n37-k6", "A-n38-k5",
-//					"A-n39-k5", "A-n39-k6", "A-n44-k7", "A-n45-k6", "A-n45-k7", "A-n46-k7", "A-n48-k7", "A-n53-k7",
-//					"A-n54-k7", "A-n55-k9", "A-n60-k9", "A-n61-k9", "A-n62-k8", "A-n63-k10", "A-n63-k9", "A-n64-k9",
-//					"A-n65-k9", "A-n69-k9", "A-n80-k10", "B-n31-k5", "B-n34-k5", "B-n35-k5", "B-n38-k6", "B-n39-k5",
-//					"B-n41-k6", "B-n43-k6", "B-n44-k7", "B-n45-k5", "B-n45-k6", "B-n50-k7", "B-n50-k8", "B-n51-k7",
-//					"B-n52-k7", "B-n56-k7", "B-n57-k7", "B-n57-k9", "B-n63-k10", "B-n64-k9", "B-n66-k9", "B-n67-k10",
-//					"B-n68-k9", "B-n78-k10", "F-n135-k7", "F-n45-k4", "F-n72-k4" };
 			std::string nomesInstancias[4] = {
 					"A-n45-k6", "A-n63-k10", "A-n80-k10", "B-n56-k7" };
-//			int numerosIteracoes[53] = { 3400, 3300, 9400, 10500, 15600, 19400, 10500, 4300, 41500, 21400, 17000,
-//					19500, 309800, 14700, 71700, 406900, 394500, 131200, 26500, 782200, 533500, 126000, 278300,
-//					372800, 1508700, 913000, 228400, 48400, 78500, 515400, 410400, 3600, 626500, 36800, 37700,
-//					292800, 351600, 18700, 316700, 282700, 33100, 182100, 107000, 1420300, 332500, 273600, 1184400,
-//					1480400, 453700, 204400, 2000000, 33000, 42400 };
-//			int numerosIteracoes[53] = { 12600, 7600, 6100, 8100, 12100, 8400, 19400, 10500, 25300, 10000, 12400,
-//					2000, 57100, 13300, 38600, 88800, 88700, 33600, 40000, 138100, 650000, 20000, 94400, 1300000,
-//					1519700, 913000, 40000, 20400, 13100, 59900, 73400, 20500, 124700, 25800, 25100, 73500, 37200,
-//					9000, 76600, 46200, 72800, 29100, 28500, 753200, 40000, 302700, 1184400, 1480400, 453700,
-//					836000, 2100000, 14000, 31400 };
 			int numerosIteracoes[4] = { 130000, 170000, 800000, 200000 };
 			int numParametrosLambda = 11;
 			double lambdas[numParametrosLambda] = { -0.4, -0.38, -0.36, -0.34, -0.32, -0.3, -0.28, -0.26, -0.24,
@@ -451,9 +419,6 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-//	std::cout << "Tempo de execução: " << get_cpu_time() << std::endl;
-//
-//	std::cout << "Fim da execução." << std::endl;
 }
 
 
